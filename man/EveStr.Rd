@@ -1,7 +1,7 @@
 \name{EveStr}
 \alias{EveStr}
 \title{
-Convert sequences of event names to strings - same length
+Converts sequences of event names to strings - same length
 }
 \description{
 EveStr converts event names in a data frame to a string vector.
@@ -31,7 +31,7 @@ The lengths of eveName.vec and char.vec are the same.
     An element in char.vec can be a letter, digit, or a special character.
 }
 \value{
-Returns a string vector.
+The function returns a string vector.
 }
 
 \seealso{

@@ -2,14 +2,14 @@
 \alias{EveString}
 
 \title{
-Convert sequences of event names to strings - generalized
+Converts sequences of event names to strings - generalized
 }
 \description{
 EveString converts event names in a data frame to a string vector.
 
     In the data frame, each row, which can have different number of 
 tokens, is converted to a string based on the conversion key. As
-a result, in the vector, converted strings may have differente lengths.
+a result, in the vector, converted strings may have different lengths.
 }
 \usage{
 EveString(eveName.file, eveName.vec, char.vec)
@@ -32,7 +32,7 @@ different numbers of event names in rows. As a result, this function uses a .txt
 (for eveName.file) and handle such task to save users' effort.
 }
 \value{
-Exports a vector containing converted strings that usually have different lengths.
+The function returns a vector containing converted strings that usually have different lengths.
 
 If not all event names are not converted to characters, a warning message will be printed out.
 }

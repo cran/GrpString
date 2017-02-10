@@ -1,7 +1,7 @@
 \name{HistDif}
 \alias{HistDif}
 \title{
-Customize the positions of legend and p value in a histogram
+Customizes the positions of legend and p value in a histogram
 }
 \description{
 The positions of legend and p value in the histogram generated from function StrDif may not be ideal
@@ -37,7 +37,7 @@ y coordinate of the p value in the histogram, default is 0.
 }
 }
 \details{
-The default values of o.y and p.y are 0. They are actually related to num_perm:  o.y is above 0.2 * num_perm, 
+The default values of o.y and p.y are 0. They are actually related to the number of permutations (num_perm):  o.y is above 0.2 * num_perm, 
 and p.y is below 0.2 * num_perm. If non-default values are used, the values become absolute y coordinates.
 }
 
