@@ -40,7 +40,7 @@ The arguments 'low', 'high' and 'interval' range from 0 to 100 in percentage.
 \value{
 A set of .txt files are exported in the current directory that contain patterns, lengths, percents of patterns,
 and converted event names if eveChar.fle is included. The names of these files are the name of strings.vec appended with
-the percentages. In addition, a file with all patterns that occurred at least 2 times as well as a file with all possible substrings (including the original strings themselves) are exported. 
+the percentages. In addition, a file with all patterns that occurred at least 2 times is exported. 
 
     row name - The initial order of substrings, which can be ignored.
     

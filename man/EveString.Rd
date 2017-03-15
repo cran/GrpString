@@ -8,7 +8,7 @@ Converts sequences of event names to strings - generalized
 EveString converts event names in a data frame to a string vector.
 
     In the data frame, each row, which can have different number of 
-tokens, is converted to a string based on the conversion key. As
+event names, is converted to a string based on the conversion key. As
 a result, in the vector, converted strings may have different lengths.
 }
 \usage{

@@ -1,3 +1,10 @@
+# GrpString 0.2.1
+
+* Add function TransMx.
+
+* Function CommonPattern: the file that contains all possible substrings is no longer exported.
+
+
 # GrpString 0.1.1
 
 * Correct the title of 'str2'.

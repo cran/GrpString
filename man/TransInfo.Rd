@@ -33,7 +33,9 @@ belonging to neither type1 nor type2.
 
     2. J. J. Topczewski; A. M. Topczewski; H. Tang; L. Kendhammer; N. J. Pienta.(2017) NMR Spectra through the eyes of a student: eye tracking applied to NMR items. Journal of chemical education, 94(1), 29-37.
 }
-
+\seealso{
+TransMx
+}
 \examples{
 # default values
 strs.vec <- c("ABCDdefABCDa", "def123DC", "123aABCD", "ACD13", "AC1ABC", "3123fe")
