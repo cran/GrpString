@@ -1,12 +1,9 @@
 #' @export
-TransMx <- function(strings.vec, indiv = FALSE){
+TransEntro <- function(strings.vec){
 
-   ##### Prepare: get the name of the input string vector
-       strings.vec_name <- deparse(substitute(strings.vec))
- 
    ##### 0. get all unique characters of all strings
 
-   # 0.1 remove strings with fewer than 2 characters 
+   # 0.1 remove strings with less than 2 characters 
    stringsx.pos <- which(nchar(strings.vec) >= 2)
    stringsx.vec <- strings.vec[stringsx.pos]
    num_strings <- length(stringsx.vec)
@@ -111,91 +108,21 @@ TransMx <- function(strings.vec, indiv = FALSE){
    # do.call in previous versions can only be used for 2 dfs in a list
    trans.df.sum.df <- Reduce('+', trans.df.list)
   
-   # 4.3 first characters (i.e., 'From') of transitions
-   trans.df.sum1.df <- noquote(cbind(str.spu, trans.df.sum.df))
-   colnames(trans.df.sum1.df)[1] <- "From/To"
-
-   ### 4.4 get normalized numbers of transitions
-
-   # 4.4.1 grand total number of all transitions in all strings
-   trans.total <- sum(trans.df.sum.df)  
-
-   # 4.4.2 normalized transition numbers in all strings
-   trans.df.sum_norm.df <- trans.df.sum.df / trans.total
-
-   # 4.4.3 round to 4 decimals if not 0
-   trans.df.sum_norm.df <- apply(trans.df.sum_norm.df, 1:2, function(x){
-                                    ifelse (x > 0, round(x, digits = 4), "0")
-                              })
  
-   # 4.4.4 first characters (i.e., 'From') of transitions    
-   trans.df.sum_norm1.df <- noquote(cbind(str.spu, trans.df.sum_norm.df))
-   colnames(trans.df.sum_norm1.df)[1] <- "From/To"
-
- 
-   ##### 5. transition numbers of each transition in all strings
+   ##### 5. transition number and frequency (ratio) of each transition in all strings
 
    # 5.1 numbers of all transitions
    trans_num.vec <- trans.df.sum.df[trans.df.sum.df > 0]
 
-   # 5.2 store in a df                                  
-   trans_num.df <- data.frame(matrix(0, ncol = 2, nrow = length(trans_num.vec)))
-   trans_num.df[,2] <- trans_num.vec
+   # 5.2 frequencies of all transitions.
+   #     They are called "normalized" transitions in function TransMx.                                 
+   trans_num_norm.vec <- trans_num.vec / sum(trans_num.vec) 
 
-   # 5.3 positions of transitions in trans.df.sum.df
-   trans_pos.mx <- which(trans.df.sum.df > 0, arr.ind=T)
 
-   # 5.4 convert positions represented by digits to characters
-   trans_pos.lett.mx <- plyr::mapvalues(trans_pos.mx, str.spun, str.spu, warn_missing = FALSE)
- 
-   # 5.5 paste characters to form transitions
-   trans_pos.2lett.vec <- apply(trans_pos.lett.mx, 1, function(x) paste(x, collapse = ""))
+   ##### 6. Entropy of transitions for a group of strings
 
-   # 5.6 store in the df
-   trans_num.df[,1] <- trans_pos.2lett.vec
+   entropy <- -sum(trans_num_norm.vec * log2(trans_num_norm.vec))
 
-   # 5.7 sort by descent order and then assign col names and remove (current row names)
-   trans_num.df <- trans_num.df[with(trans_num.df, order(-trans_num.df[,2])),]
-   colnames(trans_num.df) <- c("transition", "number_of_transition")
-   rownames(trans_num.df) <- NULL
-
-   ##### 6. put the three df above in a list
-
-   trans.out.df.list <- list(Transition_Matrix = trans.df.sum1.df,
-                              Transition_Normalized_Matrix = trans.df.sum_norm1.df,
-                              Transition_Organized = trans_num.df)
-        
-        
-
-   ##### 7. optional: output individual matrix
- 
-   if(indiv == TRUE){ 
-
-      # 7.1 add a column for starting positions ('From') of transitions to each df
-      trans.df1.list <- lapply(trans.df.list, function(x){
-                             x <- noquote(cbind(str.spu, x))
-                             colnames(x)[1] <- "From/To" 
-                             return(x)
-                            })
-
-      # 7.2 prepare out files names   
-      # stringsx.pos contains the positions of strings in original vec with at least 2 characters
-      num_strings.c <- sprintf("%02d", stringsx.pos)
-
-       # 7.3 out file names (based on the input vec), one for each string
-      out.file.names <- paste0(strings.vec_name, "_", num_strings.c, "mx", ".txt")
-
-      # 7.4 Write output transition matrix file for each string
-      lapply(1:num_strings, function(i){
-               utils::write.table(trans.df1.list[[i]], sep = "\t", row.names = FALSE,
-                           col.names = TRUE, file = out.file.names[i])
-      })
-
-   }  
-   ##### end of 'if' optional
-
-   ##### return the list containing the 3 df
-
-    return(trans.out.df.list)
+   return(entropy)
 
 }

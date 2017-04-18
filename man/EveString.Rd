@@ -28,13 +28,13 @@ Characters vector in a conversion key.
 \details{
 In general, it is not convenient to deal with data frames where different rows have different
 numbers of elements. Thus, it is easier to use a text file than to use a data frame when storing
-different numbers of event names in rows. As a result, this function uses a .txt or .csv file 
-(for eveName.file) and handle such task to save users' effort.
+different numbers of event names in rows. As a result, this function utilizes a .txt or .csv file 
+(for eveName.file) and handles such task to save users' effort.
 }
 \value{
-The function returns a vector containing converted strings that usually have different lengths.
+The function returns a vector containing converted strings that generally have different lengths.
 
-If not all event names are not converted to characters, a warning message will be printed out.
+If not all event names are converted to characters, a warning message will be printed out.
 }
 
 \note{
@@ -46,7 +46,7 @@ The users may copy eve1d.txt to a directory that can be easily found.
 }
 
 \seealso{
-EveStr
+\code{\link{EveStr}}
 }
 \examples{
 data(eventChar.df)

@@ -55,7 +55,9 @@ The messages include the number and the ratio of strings that have at least one 
 }
 
 \seealso{
-PatternInfo, CommonPatt, CommonPattern
+\code{\link{PatternInfo}},
+\code{\link{CommonPatt}},
+\code{\link{CommonPattern}}
 }
 \examples{
 data(str1)

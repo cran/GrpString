@@ -35,7 +35,7 @@ The function returns a string vector.
 }
 
 \seealso{
-EveString
+\code{\link{EveString}}
 }
 \examples{
 # small number of event names

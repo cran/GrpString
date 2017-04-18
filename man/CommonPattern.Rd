@@ -19,7 +19,7 @@ CommonPattern(strings.vec, low = 5, high = 25, interval = 5, eveChar.df)
 String vector.
 }
   \item{low}{
-The lowest cutoff, which is the minimum percentage of the occurrence of patterns that the user specifies.
+The lowest cutoff. It is the minimum percentage of the occurrence of patterns that the user specifies.
 The default value is 5.
 }
   \item{high}{
@@ -38,7 +38,7 @@ Data frame that stores the event name - character conversion key (optional).
 The arguments 'low', 'high' and 'interval' range from 0 to 100 in percentage.
 }
 \value{
-A set of .txt files are exported in the current directory that contain patterns, lengths, percents of patterns,
+A set of .txt files are exported into the current directory that contain patterns, lengths, percents of patterns,
 and converted event names if eveChar.fle is included. The names of these files are the name of strings.vec appended with
 the percentages. In addition, a file with all patterns that occurred at least 2 times is exported. 
 
@@ -71,7 +71,7 @@ The time to run this function can be relatively long (from seconds to minutes de
     3. J. M. West; A. H. Haake; E. P. Rozanksi; K. S. Karn. (2006). EyePatterns: Software for identifying patterns and similarities across fixation sequences. In Proceedings of the Symposium on Eye-tracking Research & Applications, ACM Press, New York, 149-154.
 }
 \seealso{
-CommonPatt
+\code{\link{CommonPatt}}
 }
 \examples{
 # simple strings

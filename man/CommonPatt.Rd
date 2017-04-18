@@ -17,7 +17,7 @@ CommonPatt(strings.vec, low = 10)
 String Vector.
 }
   \item{low}{
-Cutoff, which is the minimum percentage of the occurrence of patterns that the user specifies.
+Cutoff. It is the minimum percentage of the occurrence of patterns that the user specifies.
 The default value is 10.
 }
 }
@@ -52,7 +52,7 @@ The function returns a data frame containing patterns, lengths and percentages o
 }
 
 \seealso{
-CommonPattern
+\code{\link{CommonPattern}}
 }
 \examples{
 # Simple strings, non-default cutoff

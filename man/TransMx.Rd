@@ -15,17 +15,24 @@ TransMx(strings.vec, indiv = FALSE)
 \arguments{
   \item{strings.vec}{
 String Vector.
+
+    If a string has fewer than 2 characters, that string will be ignored.
 }
   \item{indiv}{
-Whether export transition matrix for each string in the current directory. Default value is FALSE.
+Whether exports transition matrix for each string into the current directory. Default value is FALSE.
 }
 }
 
 \value{
 The function returns a list, which contains the transition matrix, the normalized matrix, and the sorted numbers of transitions.
+
+    If indiv = TRUE, a set of mx.txt files are exported into the current directory that contain transition matrix for each string. The names of these files are the name of strings.vec appended with the orders of the strings in the string vector. If a string has fewer than 2 characters, the corresponding mx.txt file will be skipped.
+}
+\note{
+Strings with less than 2 characters are not included due to the definition of transition.
 }
 \seealso{
-TransInfo
+\code{\link{TransInfo}}
 }
 \examples{
 # simple strings
