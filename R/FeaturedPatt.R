@@ -1,5 +1,5 @@
 #' @export
-UniPatterns <-
+FeaturedPatt <-
 function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
    
    ## 1. Names of output files
@@ -21,24 +21,24 @@ function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
 
 
    # 1.2 Generate names of columns as well as output files
-   # 1.2.1 name of unique-patterns-only file
+   # 1.2.1 name of featured-patterns-only file
 
-   unique_pattern_only_colname <- paste("onlyIn", "_", grp_snames.vec[1:2], sep="")
-   unique_pattern_only_fname <- paste("uni_", grp_pnames.vec[1], "-", grp_pnames.vec[2], ".txt", sep="")
+   featured_pattern_only_colname <- paste("onlyIn", "_", grp_snames.vec[1:2], sep="")
+   featured_pattern_only_fname <- paste("uni_", grp_pnames.vec[1], "-", grp_pnames.vec[2], ".txt", sep="")
 
-   # 1.2.2 names of unique-patterns-information file
+   # 1.2.2 names of featured-patterns-information file
    # in the order of: patterns vs. strings - grp1 in grp1; grp2 in grp2; grp1 in grp2; grp2 in grp1;
 
-   unique_pattern_info_fnames <- paste(grp_pnames.vec, "-vs-", grp_pnames.vecx, "_in_", grp_snames.vec, ".txt", sep="")
+   featured_pattern_info_fnames <- paste(grp_pnames.vec, "-vs-", grp_pnames.vecx, "_in_", grp_snames.vec, ".txt", sep="")
 
 
-   ## 2. Unique patterns only
+   ## 2. featured patterns only
 
-   # 2.1 Get unique patterns only
+   # 2.1 Get featured patterns only
    pattern_grp1_only <- grp1_pattern[!(grp1_pattern %in% grp2_pattern)]
    pattern_grp2_only <- grp2_pattern[!(grp2_pattern %in% grp1_pattern)]
 
-   # 2.2 Export unique patterns only file
+   # 2.2 Export featured patterns only file
 
    # 2.2.1 function to combine two vectors with different lengths
   
@@ -59,22 +59,22 @@ function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
       return(vec12.df)
    }
 
-   # 2.2.2 get and write unique patterns only, in 2 columns, for the 2 string groups, respectively
+   # 2.2.2 get and write featured patterns only, in 2 columns, for the 2 string groups, respectively
 
-   pattern_uniqu.df <- combine_2_vec(pattern_grp1_only, pattern_grp2_only)
-   colnames(pattern_uniqu.df) <- unique_pattern_only_colname
+   pattern_featured.df <- combine_2_vec(pattern_grp1_only, pattern_grp2_only)
+   colnames(pattern_featured.df) <- featured_pattern_only_colname
 
-   utils::write.table(pattern_uniqu.df, sep="\t", col.names=T, file=unique_pattern_only_fname)
+   utils::write.table(pattern_featured.df, sep="\t", col.names=T, file=featured_pattern_only_fname)
 
 
-   ## 3. Unique patterns information
+   ## 3. featured patterns information
 
    # 3.1 initialize df for pattern summary
 
-   # 3.1.1 list of unique patterns
+   # 3.1.1 list of featured patterns
    upattern.list <- list(pattern_grp1_only, pattern_grp2_only, pattern_grp1_only, pattern_grp2_only)
 
-   # 3.1.2 each column is for a unique pattern
+   # 3.1.2 each column is for a featured pattern
 
    num_col_grp.vec <- sapply(upattern.list, length)
 
@@ -111,12 +111,12 @@ function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
    }
  
    # 3.2.2 apply function
-   # pattern_info.df.list contains 4 df, each of which indicates the starting postions of each grp1/2 unique pattern in grp1/2 strings
+   # pattern_info.df.list contains 4 df, each of which indicates the starting postions of each grp1/2 featured pattern in grp1/2 strings
 
    pattern_info.df.list <- lapply(1:4, function(i) stat_pattern(upattern.list[[i]], string.list[[i]]))
 
 
-   # 3.2.3 num_p.list contains 4 vec, each of which indicates the sum numbers of each grp1/2 string containing grp1/2 unique patterns 
+   # 3.2.3 num_p.list contains 4 vec, each of which indicates the sum numbers of each grp1/2 string containing grp1/2 featured patterns 
    num_p.list <- lapply(1:4, function(i){
                       apply(pattern_info.df.list[[i]], 1, function(x) sum(x!=-1))
                  })
@@ -139,13 +139,13 @@ function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
       colnames(pattern_info.df3.list[[i]])[2:3] <- c("Length", "numPattern")
    }
 
-   # 3.2.7 output 4 unique pattern information files
+   # 3.2.7 output 4 featured pattern information files
    lapply(1:4, function(i){
-           utils::write.table(pattern_info.df3.list[[i]], file=unique_pattern_info_fnames[i], sep="\t", row.names=F, col.names=T)
+           utils::write.table(pattern_info.df3.list[[i]], file=featured_pattern_info_fnames[i], sep="\t", row.names=F, col.names=T)
    })
 
 
-   ## 4. Unique patterns summary
+   ## 4. featured patterns summary
 
    # 4.1 number of strings that have at least one pattern
    num_str_w_pattern.vec = sapply(num_p.list, function(x) sum(!x==0))
@@ -157,8 +157,8 @@ function(grp1_pattern, grp2_pattern, grp1_string, grp2_string){
    # 'invisible' hides NULLs returned
    invisible(lapply(1:4, function(i){
       tell.list = sprintf("For patterns %s in strings %s, the number of total strings is: %g
-                  The number of strings that have at least one unique pattern is: %g 
-                  The ratio of strings that have at least one unique pattern is:  %.3f \n\n",
+                  The number of strings that have at least one featured pattern is: %g 
+                  The ratio of strings that have at least one featured pattern is:  %.3f \n\n",
                   grp_pnames.vec[i], grp_snames.vec[i], num_row_grp.vec[i], num_str_w_pattern.vec[i], ratio_str_w_pattern.vec[i])
       cat(tell.list)
    }))
